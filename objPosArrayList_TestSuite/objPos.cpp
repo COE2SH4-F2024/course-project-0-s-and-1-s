@@ -1,6 +1,6 @@
 #include "objPos.h"
 
-objPos::objPos()
+objPos::objPos() //default constructor
 {
     pos = new Pos;
     pos->x = 0;
@@ -8,7 +8,7 @@ objPos::objPos()
     symbol = 0; //NULL
 }
 
-objPos::objPos(int xPos, int yPos, char sym)
+objPos::objPos(int xPos, int yPos, char sym) //additional constructor
 {
     pos = new Pos;
     pos->x = xPos;
@@ -19,7 +19,36 @@ objPos::objPos(int xPos, int yPos, char sym)
 // Respect the rule of six / minimum four
 // [TODO] Implement the missing special member functions to meet the minimum four rule
 
+//Copy Constructor
+objPos::objPos(const objPos& other)
+{
+    pos = new Pos;
+    pos->x = other.pos->x;
+    pos->y = other.pos->y;
+    symbol = other.symbol;
+}
 
+//copy assignment Operator
+objPos& objPos::operator = (const objPos& other)
+{
+    if(this != &other)
+    {
+        delete pos; //deallocate old memory
+
+        pos = new Pos; // allocate new memory
+        pos->x = other.pos->x;
+        pos->y = other.pos->y;
+        symbol = other.symbol;
+    }
+    return *this;
+}
+
+
+//destructor
+objPos::~objPos()
+{
+    delete pos;
+}
 
 
 void objPos::setObjPos(objPos o)
